@@ -157,6 +157,7 @@ if (!customElements.get("sjm-cart-upsell")) {
 
           if (products.length === 0) {
             this.parentNode.hide();
+            console.log('No upsell for product ID ', productId)
           }
 
           this.renderProducts(products);
