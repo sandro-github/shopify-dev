@@ -159,7 +159,7 @@ if (!customElements.get("sjm-cart-upsell")) {
             this.parentNode.hide();
             console.log('No upsell for product ID ', productId)
           }
-
+          console.log('Upsell for product ID ', productId)
           this.renderProducts(products);
           this.parentNode.show();
         })
