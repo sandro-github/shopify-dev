@@ -75,7 +75,9 @@
         </button>        
       </div>      
       
-      {% render 'sjm-free-shipping-bar' %}
+      {% # Start free shipping bar snippet %}
+        {% render 'sjm-free-shipping-bar' %}
+      {% # End free shipping bar snippet %}
 
       <cart-drawer-items
         {% if cart == empty %}
