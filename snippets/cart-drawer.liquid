@@ -73,11 +73,9 @@
             {{- 'icon-close.svg' | inline_asset_content -}}
           </span>
         </button>        
-      </div>
+      </div>      
       
-      {%- unless cart == empty -%}
-        {% render 'sjm-free-shipping-bar' %}
-      {% endunless %}
+      {% render 'sjm-free-shipping-bar' %}
 
       <cart-drawer-items
         {% if cart == empty %}
