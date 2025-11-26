@@ -1,0 +1,71 @@
+<sjm-cart-upsell>
+  <div class="cart-upsell-wrapper">
+    <h3 class="cart-upsell-title">You may also like</h3>
+
+    <div class="swiper cart-upsell-swiper">
+      <div class="swiper-wrapper" id="cart-upsell-container">
+        {%- assign last_item = cart.items | last -%}
+        {%- if last_item.product.complementary_products_count > 0 -%}
+
+          {%- for product in last_item.product.complementary_products limit: 10 -%}
+            <div class="swiper-slide">
+              <a href="{{ product.url }}" class="upsell-card">
+                <div class="upsell-image-wrapper">
+                  <img
+                    src="{{ product.featured_image | image_url: width: 300 }}"
+                    alt="{{ product.title }}"
+                    class="upsell-image"
+                  >
+                </div>
+                <p class="upsell-title">{{ product.title }}</p>
+
+                {%- if product.selected_or_first_available_variant.available -%}
+                  <p class="upsell-price">{{ product.price | money }}</p>
+                {%- else -%}
+                  <p class="upsell-soldout">Sold Out</p>
+                {%- endif -%}
+              </a>
+            </div>
+          {%- endfor -%}
+
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</sjm-cart-upsell>
+
+<style>
+.cart-upsell-wrapper {
+  padding: 20px 16px;
+}
+.cart-upsell-title {
+  font-size: 18px;
+  margin-bottom: 12px;
+}
+.upsell-card {
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+.upsell-image-wrapper {
+  border-radius: 8px;
+  overflow: hidden;
+}
+.upsell-image {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+.upsell-title {
+  margin: 8px 0 4px;
+  font-size: 14px;
+}
+.upsell-price {
+  font-weight: bold;
+  font-size: 14px;
+}
+.upsell-soldout {
+  color: #999;
+  font-size: 14px;
+}
+</style>

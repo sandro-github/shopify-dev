@@ -1,0 +1,150 @@
+<sjm-shipping-bar
+  data-cart-total="{{ cart.total_price }}"
+  data-threshold-standard="10000"
+  data-threshold-express="25000"
+>
+  <div class="sjm-progress-container">
+
+    <p class="sjm-progress-message"></p>
+
+    <div class="sjm-progress-bar">
+      <div class="sjm-progress-active"></div>
+
+      <!-- marker 1 -->
+      <div class="sjm-marker sjm-marker-standard">
+        <span class="inactive">{{- 'icon-inactive-track.svg' | inline_asset_content -}}</span>
+        <span class="active">{{- 'icon-active-track.svg' | inline_asset_content -}}</span>
+      </div>
+
+      <!-- marker 2 -->
+      <div class="sjm-marker sjm-marker-express">
+        <span class="inactive">{{- 'icon-inactive-track.svg' | inline_asset_content -}}</span>
+        <span class="active">{{- 'icon-active-track.svg' | inline_asset_content -}}</span>
+      </div>
+    </div>
+
+    <div class="sjm-progress-labels">
+      <span>Free Standard Shipping</span>
+      <span>Free Express Shipping</span>
+    </div>
+
+  </div>
+</sjm-shipping-bar>
+
+<style>
+  sjm-shipping-bar {
+    border-top: 1px solid #D9DAD9;
+    border-bottom: 1px solid #D9DAD9;
+    margin-left: -1.5rem;
+    margin-right: -1.5rem;
+    margin-bottom: 1.5rem;
+  }
+  .sjm-progress-container {
+    margin: 15px 0 20px;
+    text-align: center;
+    font-size: 13px;
+    padding-inline: 1.5rem;
+  }
+
+  .sjm-progress-message {
+    margin-bottom: 6px;
+  }
+
+  /* BAR BASE */
+  .sjm-progress-bar {
+    position: relative;
+    height: 6px;
+    width: 100%;
+    background: #ccc;
+  }
+
+  /* ACTIVE FILL */
+  .sjm-progress-active {
+    height: 100%;
+    width: 0%;
+    background: #122023;
+    display: block!important;
+    transition: width 0.35s ease;
+  }
+
+  /* MARKERS */
+  .sjm-marker {
+    position: absolute;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 20px;
+    height: 20px;
+    transition: background .3s, color .3s;
+  }
+  .sjm-marker span.inactive {display: block}
+  .sjm-marker span.active {display: none}
+  .sjm-marker.active span.inactive {display: none}
+  .sjm-marker.active span.active {display: block}
+
+  
+
+  /* Marker positions */
+  .sjm-marker-standard {
+    left: calc((100 / 250) * 100%);
+  }
+  .sjm-marker-express {
+    left: calc((250 / 250) * 100%);
+  }
+
+  /* LABELS */
+  .sjm-progress-labels {
+    margin-top: 8px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    opacity: .8;
+  }
+</style>
+
+<script>
+class SjmShippingBar extends HTMLElement {
+  connectedCallback() {
+    this.updateBar();
+
+    document.addEventListener('cart:updated', (event) => {
+      const cart = event.detail.cart;
+      this.setAttribute('data-cart-total', cart.total_price);
+      this.updateBar();
+    });
+  }
+
+  updateBar() {
+    const total = Number(this.getAttribute('data-cart-total')); // cents
+    const standard = Number(this.getAttribute('data-threshold-standard'));
+    const express = Number(this.getAttribute('data-threshold-express'));
+
+    const active = this.querySelector('.sjm-progress-active');
+    const msg = this.querySelector('.sjm-progress-message');
+    const mStandard = this.querySelector('.sjm-marker-standard');
+    const mExpress = this.querySelector('.sjm-marker-express');
+
+    const dollars = total / 100;
+
+    /* Calculate progress out of 250 */
+    let percent = Math.min((dollars / 250) * 100, 100);
+    active.style.width = percent + "%";
+
+    /* Marker state */
+    mStandard.classList.toggle("active", total >= standard);
+    mExpress.classList.toggle("active", total >= express);
+
+    /* Messaging logic */
+    if (total >= express) {
+      msg.textContent = "🎉 You unlocked Free Express Shipping!";
+    } else if (total >= standard) {
+      let remain = ((express - total) / 100).toFixed(2);
+      msg.textContent = "Add $" + remain + " to unlock Free Express Shipping!";
+    } else {
+      let remain = ((standard - total) / 100).toFixed(2);
+      msg.textContent = "Add $" + remain + " to unlock Free Standard Shipping!";
+    }
+  }
+}
+
+customElements.define('sjm-shipping-bar', SjmShippingBar);
+</script>
