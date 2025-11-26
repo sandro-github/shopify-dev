@@ -479,8 +479,10 @@
           <div id="CartDrawer-CartErrors" role="alert"></div>
         </form>
       </cart-drawer-items>
-      
-      {% render 'cart-drawer-upsell' %}
+
+      {% # Start cart drawer upsell snippet %}
+        {% render 'cart-drawer-upsell' %}
+      {% # End cart drawer upsell snippet %}
 
       <div class="drawer__footer">
         {%- if settings.show_cart_note -%}
