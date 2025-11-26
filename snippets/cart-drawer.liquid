@@ -74,7 +74,11 @@
           </span>
         </button>        
       </div>
-      {% render 'sjm-free-shipping-bar' %}
+      
+      {%- unless cart == empty -%}
+        {% render 'sjm-free-shipping-bar' %}
+      {% endunless %}
+
       <cart-drawer-items
         {% if cart == empty %}
           class=" is-empty"
