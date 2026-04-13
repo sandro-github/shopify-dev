@@ -99,63 +99,10 @@
         "padding_top": 36,
         "padding_bottom": 28
       }
-    },
-    "1776070767e35301f9": {
-      "type": "apps",
-      "blocks": {
-        "veeform_product_quiz_builder_button_popup_4R64Up": {
-          "type": "shopify://apps/veeform-product-quiz-builder/blocks/button-popup/35886e51-37e3-4978-a765-359cc73afebe",
-          "settings": {
-            "quizId": "cp30oj3z",
-            "popup_type": "s",
-            "slider_side": "r",
-            "button_text": "Click me",
-            "button_color": "#0066ff",
-            "text_color": "",
-            "font_size": 16,
-            "border_radius": 8
-          }
-        }
-      },
-      "block_order": [
-        "veeform_product_quiz_builder_button_popup_4R64Up"
-      ],
-      "settings": {
-        "include_margins": true
-      }
-    },
-    "17760729166918abd8": {
-      "type": "apps",
-      "blocks": {
-        "quizshop_htc_quiz_modal_HzN78D": {
-          "type": "shopify://apps/quizshop/blocks/htc-quiz-modal/1dead2dc-cb7e-4e45-bead-dbbaf8f248a9",
-          "settings": {
-            "quiz_id": "1511",
-            "selected_collection": "",
-            "trigger_text": "Take Our Quiz",
-            "htc-pop-button_layout": "solid",
-            "htc--pop-button_alignment": "center",
-            "htc-pop-button_width": "auto",
-            "button_style": "#000000",
-            "htcp-pop-button_color": "#ffffff",
-            "htc-pop-button_size": 12,
-            "htc-pop-button_radius": 0,
-            "htc-pop-button_border-width": 1
-          }
-        }
-      },
-      "block_order": [
-        "quizshop_htc_quiz_modal_HzN78D"
-      ],
-      "settings": {
-        "include_margins": true
-      }
     }
   },
   "order": [
     "main",
-    "related-products",
-    "1776070767e35301f9",
-    "17760729166918abd8"
+    "related-products"
   ]
 }
